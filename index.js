@@ -1,9 +1,9 @@
 "use strict";
 var vueElementDialogDraggable = {}
 vueElementDialogDraggable.install = function(Vue, options){
-	
+
 	Vue.directive('draggable', {
-		
+
 		bind : function(el, binding, vnode) {
 
 			var dlg = el.getElementsByClassName("el-dialog")[0];
@@ -19,8 +19,22 @@ vueElementDialogDraggable.install = function(Vue, options){
 			var move = function(e){
 				dlg.style.marginLeft = '0px';
 				dlg.style.marginTop = '0px';
-				dlg.style.left = (e.pageX - dlg.offsetX) + 'px';
-				dlg.style.top = (e.pageY - dlg.offsetY) + 'px';
+				if (e.pageX - dlg.offsetX >= 0 && window.innerWidth >= (e.pageX + dlg.clientWidth - dlg.offsetX)) {
+					dlg.style.left = (e.pageX - dlg.offsetX) + 'px';
+				} else if (e.pageX - dlg.offsetX < 0) {
+					dlg.style.left = 0;
+				} else {
+					dlg.style.left = dlg.clientWidth + 'px';
+				}
+				if (e.pageY >= 0 && window.innerHeight >= (e.pageY + dlg.clientHeight - dlg.offsetY)) {
+					dlg.style.top = (e.pageY - dlg.offsetY) + 'px';
+				} else if (e.pageY < 0) {
+					dlg.style.top = 0;
+				} else {
+					dlg.style.top = (window.innerHeight - dlg.clientHeight) + 'px';
+					dlg.style.marginBottom = 0;
+				}
+				dlg.style.bottom = 'auto';
 			}
 
 			var up = function() {
@@ -36,9 +50,9 @@ vueElementDialogDraggable.install = function(Vue, options){
 				addEventListener('mouseup', up);
 			}
 
-			var header = el.getElementsByClassName("el-dialog__header")[0];
+			var header = el.getElementsByClassName("el-dialog")[0];
 			header.addEventListener('mousedown', down);
-    }
+		}
 	});
 }
 
