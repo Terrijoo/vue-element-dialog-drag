@@ -5,7 +5,6 @@ vueElementDialogDraggable.install = function(Vue, options){
   Vue.directive('draggable', {
 
     bind : function(el, binding, vnode) {
-      console.log(el);
       if (binding.value) {
         var dlg = el.getElementsByClassName("el-dialog")[0];
         var title = el.getElementsByClassName("el-dialog__title")[0];
