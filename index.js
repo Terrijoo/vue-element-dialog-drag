@@ -34,6 +34,9 @@ vueElementDialogDraggable.install = function(Vue, options){
             dlg.style.top = (window.innerHeight - dlg.clientHeight) + 'px';
             dlg.style.marginBottom = 0;
           }
+          if (parseInt(dlg.style.top, 10) < 0) {
+            dlg.style.top = 0;
+          }
           dlg.style.bottom = 'auto';
         }
 
