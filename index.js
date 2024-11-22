@@ -47,6 +47,7 @@ vueElementDialogDraggable.install = function(Vue, options){
 
         var down = function(e){
           if (
+            e.path &&
             e.path[0] &&
             ['el-dialog__header', 'el-dialog__title'].includes(e.path[0].className)
           ) {
